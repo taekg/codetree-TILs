@@ -189,7 +189,6 @@ void plantKiller() {
 		int stY = kv[0].y;
 		int stX = kv[0].x;
 		totalKill += kv[0].killCnt;
-		kv.clear();
 		MAP[stY][stX] = 0;
 		rv.push_back({ stY,stX,nowYear + c });
 		for (int d = 0; d < 4; d++)
@@ -213,6 +212,7 @@ void plantKiller() {
 					nowy = ny;
 					nowx = nx;
 				}
+				kCnt++;
 			}
 		}
 		// 제초제를 뿌리기 전에 년에 따라 제초제 잔여 갱신
@@ -223,7 +223,7 @@ void plantKiller() {
 			deadBase[rv[i].y][rv[i].x] = 1;
 		}
 	}
-
+	kv.clear();
 }
 
 int main() {
