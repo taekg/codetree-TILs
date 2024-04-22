@@ -202,13 +202,19 @@ void plantKiller() {
 				int nx = nowx + diax[d];
 				if (ny >= n || nx >= n || ny < 0 || nx < 0)break;
 				if (MAP[ny][nx] == -1)break;
-				MAP[ny][nx] = 0;
-				rv.push_back({ ny,nx,nowYear + c });
-				nowy = ny;
-				nowx = nx;
+				// 나무가 없다면 그 칸까지는 제초제가 뿌려지고 전파되지 않는다
+				if (MAP[ny][nx] == 0) {
+					rv.push_back({ ny,nx,nowYear + c });
+					break;
+				}
+				else {
+					MAP[ny][nx] = 0;
+					rv.push_back({ ny,nx,nowYear + c });
+					nowy = ny;
+					nowx = nx;
+				}
 			}
 		}
-		int a = 1;
 		// 제초제를 뿌리기 전에 년에 따라 제초제 잔여 갱신
 		memset(deadBase, 0, sizeof(deadBase));
 		for (int i = 0; i < rv.size(); i++)
